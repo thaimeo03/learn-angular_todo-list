@@ -1,0 +1,29 @@
+.btn {
+  border: none;
+  outline: none;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-white {
+  background-color: white;
+  color: var(--accent-color);
+}
+
+.circle-btn {
+  border-radius: 50%;
+  padding: 0;
+  min-width: 48px;
+  min-height: 48px;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}

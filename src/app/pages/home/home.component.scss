@@ -1,0 +1,54 @@
+#home {
+  position: relative;
+  height: 100vh;
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.main {
+  position: relative;
+  height: 629px;
+  padding: 2rem;
+  margin-top: 2rem;
+  background-color: var(--accent-color-900);
+  border-radius: 1.5rem;
+
+  h2 {
+    font-size: 1.75rem;
+    font-weight: lighter;
+    text-align: center;
+  }
+
+  .task-info {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--accent-color-800);
+    font-size: small;
+
+    .task-value {
+      margin-left: 0.5rem;
+      padding: 4px 6px;
+      background-color: white;
+      color: var(--accent-color-600);
+      border-radius: 4px;
+    }
+  }
+
+  .add-todo {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform: translateY(-50%) translateX(-50%);
+
+    #add-icon {
+      color: white;
+    }
+  }
+}

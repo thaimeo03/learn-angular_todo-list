@@ -1,0 +1,20 @@
+<section class="card" [hidden]="hidden">
+  <p class="title">Create task</p>
+
+  <div class="create-task-input">
+    <home-input-with-icon iconName="edit" placeholder="Write the task name..."/>
+  </div>
+
+  <div class="group-btn">
+    <home-button
+      customClass="btn-white"
+      (clicked)="handleCancel()"
+    >
+      Cancel
+    </home-button>
+
+    <home-button (clicked)="handleCreate()">
+      Accept
+    </home-button>
+  </div>
+</section>
