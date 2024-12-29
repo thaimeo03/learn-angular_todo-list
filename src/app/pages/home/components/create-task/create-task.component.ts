@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
-import { InputWithIconComponent } from "../input-with-icon/input-with-icon.component";
-import { ButtonComponent } from "../button/button.component";
-
+import { InputWithIconComponent } from "../../../../shared/input-with-icon/input-with-icon.component";
+import { ButtonComponent } from "../../../../shared/button/button.component";
 @Component({
   selector: 'home-create-task',
   imports: [MatIconModule, InputWithIconComponent, ButtonComponent],
@@ -10,8 +9,6 @@ import { ButtonComponent } from "../button/button.component";
   styleUrls: ['./create-task.component.scss']
 })
 export class CreateTaskComponent {
-  @Input() hidden!: boolean;
-
   @Output() handleCancelEvent = new EventEmitter();
 
   handleCancel(): void {

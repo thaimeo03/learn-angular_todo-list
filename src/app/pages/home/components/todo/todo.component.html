@@ -1,0 +1,9 @@
+<section class="todo-box">
+  <div class="group-1">
+    <app-radio-button [value]="todo.id" [checked]="todo.isFinished" (valueChange)="onValueChange()"/>
+    <p [ngClass]="{'title': todo.isFinished}">{{ todo.title }}</p>
+  </div>
+  <div class="group-2">
+    <mat-icon class="close-icon">close</mat-icon>
+  </div>
+</section>

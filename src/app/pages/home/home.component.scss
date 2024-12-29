@@ -12,6 +12,8 @@
 
 .main {
   position: relative;
+  display: flex;
+  flex-direction: column;
   height: 629px;
   padding: 2rem;
   margin-top: 2rem;
@@ -24,21 +26,8 @@
     text-align: center;
   }
 
-  .task-info {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--accent-color-800);
-    font-size: small;
-
-    .task-value {
-      margin-left: 0.5rem;
-      padding: 4px 6px;
-      background-color: white;
-      color: var(--accent-color-600);
-      border-radius: 4px;
-    }
+  .todo-list {
+    flex-grow: 1;
   }
 
   .add-todo {

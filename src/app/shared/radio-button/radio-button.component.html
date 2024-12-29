@@ -1,0 +1,12 @@
+<label class="custom-radio" [class.disabled]="disabled">
+  <input
+    type="radio"
+    [value]="value"
+    [checked]="checked"
+    [disabled]="disabled"
+    [attr.name]="name || null"
+    (click)="onSelectionChange($event)"
+  />
+  <span class="custom-radio-box" [ngClass]="{'done': checked}"></span>
+  <ng-content></ng-content>
+</label>

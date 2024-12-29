@@ -1,0 +1,11 @@
+<div class="dialog-overlay" *ngIf="isVisible" (click)="close()">
+  <div class="dialog-content" [ngClass]="dialogClass" (click)="$event.stopPropagation()">
+    <div class="dialog-header">
+      <h3 *ngIf="title">{{ title }}</h3>
+      <button *ngIf="closable" class="dialog-close" (click)="close()">×</button>
+    </div>
+    <div class="dialog-body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

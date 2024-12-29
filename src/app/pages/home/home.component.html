@@ -4,18 +4,10 @@
     <main class="main">
       <h2>Your Tasks</h2>
 
-      <home-search></home-search>
+      <home-search />
 
-      <div class="task-info">
-        <div>
-          Total Tasks: <span class="task-value">0</span>
-        </div>
-        <div class="">
-          Completed:
-          <span class="task-value">
-            <span>0</span> / <span>0</span>
-          </span>
-        </div>
+      <div class="todo-list">
+        <app-todo-list/>
       </div>
 
       <div class="add-todo">
@@ -26,6 +18,7 @@
     </main>
   </section>
 
-  <home-create-task [hidden]="hidden" (handleCancelEvent)="closeDialog()" />
+  <app-dialog dialogClass="dialog-dark" [isVisible]="isVisible" (closeEvent)="onDialogClose()">
+    <home-create-task (handleCancelEvent)="onDialogClose()" />
+  </app-dialog>
 </main>
-z

@@ -2,22 +2,25 @@ import { Component } from "@angular/core";
 import {MatIconModule} from '@angular/material/icon';
 import { CreateTaskComponent } from "./components/create-task/create-task.component";
 import { SearchComponent } from "./components/search/search.component";
-import { ButtonComponent } from "./components/button/button.component";
+import { ButtonComponent } from "../../shared/button/button.component";
+import { DialogComponent } from "../../shared/dialog/dialog.component";
+import { TodoListComponent } from "./components/todo-list/todo-list.component";
 
 @Component({
   selector: 'app-home',
-  imports: [SearchComponent, ButtonComponent, MatIconModule, CreateTaskComponent],
+  imports: [SearchComponent, ButtonComponent, MatIconModule, CreateTaskComponent, DialogComponent, TodoListComponent],
+  providers: [],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  hidden: boolean = true;
+  isVisible: boolean = false;
 
-  openDialog() {
-    this.hidden = false;
+  openDialog(): void {
+    this.isVisible = true;
   }
 
-  closeDialog() {
-    this.hidden = true;
+  onDialogClose(): void {
+    this.isVisible = false;
   }
 }

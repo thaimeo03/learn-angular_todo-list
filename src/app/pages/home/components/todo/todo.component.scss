@@ -1,0 +1,35 @@
+.todo-box {
+  padding: 8px 24px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--accent-color);
+  border-radius: 8px;
+
+  .group-1 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .title {
+      text-decoration: line-through;
+      color: var(--accent-color-800);
+    }
+  }
+
+  .group-2 {
+    display: flex;
+    align-items: center;
+
+    .close-icon {
+      font-size: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .close-icon:hover {
+      color: var(--accent-color-600);
+    }
+  }
+}

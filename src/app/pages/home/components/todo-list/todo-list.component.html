@@ -1,3 +1,29 @@
-<main>
-  <h1>Todo List</h1>
-</main>
+<div class="group">
+  <div class="task-info">
+    <div>
+      Total Tasks: <span class="task-value">0</span>
+    </div>
+    <div class="">
+      Completed:
+      <span class="task-value">
+        <span>0</span> / <span>0</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="todo-list" *ngIf="todoList.length > 0; else noTodos;">
+    <app-todo
+      *ngFor="let todo of todoList"
+      [todo]="todo"
+      (updateTodoEvent)="updateTodoList($event)"
+    />
+  </div>
+
+  <ng-template #noTodos>
+    <div class="no-todo-list">
+      <mat-icon class="add-icon">add</mat-icon>
+      <p class="desc">You have no pending tasks</p>
+      <p class="notify">Create one to get started</p>
+    </div>
+  </ng-template>
+</div>
