@@ -1,0 +1,19 @@
+<ng-container>
+  <div class="flex-column">
+    <label>Email</label>
+    <home-input-with-icon iconName="alternate_email" placeholder="Enter your Email" />
+  </div>
+
+
+  <div class="flex-column">
+    <label>Password</label>
+    <home-input-with-icon iconName="key" placeholder="Enter your password" />
+  </div>
+
+  <home-button>Sign In</home-button>
+
+  <p class="p">
+    Don't have an account? <a [routerLink]="['/register']">Sign Up</a>
+  </p>
+
+</ng-container>

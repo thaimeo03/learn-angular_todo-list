@@ -1,0 +1,23 @@
+header {
+  padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  user-select: none;
+
+  .logo-title {
+    margin-left: 8px;
+    display: flex;
+    font-size: x-large;
+    font-weight: 500;
+
+    .detail {
+      color: var(--primary-color);
+    }
+  }
+}
+
