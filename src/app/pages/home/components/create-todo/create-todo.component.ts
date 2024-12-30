@@ -6,13 +6,13 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { TodoService } from "../../../../services/todo.service";
 import { CommonModule } from "@angular/common";
 @Component({
-  selector: 'home-create-task',
+  selector: 'home-create-todo',
   imports: [MatIconModule, InputWithIconComponent, ButtonComponent, ReactiveFormsModule, CommonModule],
   providers: [],
-  templateUrl: './create-task.component.html',
-  styleUrls: ['./create-task.component.scss']
+  templateUrl: './create-todo.component.html',
+  styleUrls: ['./create-todo.component.scss']
 })
-export class CreateTaskComponent {
+export class CreateTodoComponent {
   private todoService = inject(TodoService)
 
   @Output() handleCancelEvent = new EventEmitter<void>();

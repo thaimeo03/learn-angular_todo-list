@@ -19,20 +19,15 @@ export class TodoListComponent implements OnInit {
   totalTasks = 0
   finishTasks = 0
 
-  constructor() {
-    this.todoList = this.todoService.getTodoList()
-    this.updateTaskInfo()
-  }
-
   ngOnInit(): void {
     this.todoService.todoList$.subscribe((todoList) => {
-      this.todoList = todoList
+      this.todoList = this.todoService.updateTodoListByFinishedOrder(todoList)
       this.updateTaskInfo()
     })
   }
 
   updateTodoList() {
-    this.todoService.updateTodoListByFinishedOrder()
+    this.todoService.updateTodoListByFinishedOrder(this.todoList)
     this.updateTaskInfo()
   }
 

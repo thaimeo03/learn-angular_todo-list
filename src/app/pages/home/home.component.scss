@@ -28,6 +28,7 @@
 
   .todo-list {
     flex-grow: 1;
+    overflow-y: auto;
   }
 
   .add-todo {

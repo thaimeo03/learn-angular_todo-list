@@ -16,10 +16,6 @@ export class TodoService {
 
   todoList$ = this.todoListSubject.asObservable()
 
-  getTodoList() {
-    return this.updateTodoListByFinishedOrder();
-  }
-
   getTotalTasks() {
     return this.todoList.length
   }
@@ -34,8 +30,8 @@ export class TodoService {
     return cnt
   }
 
-  updateTodoListByFinishedOrder() {
-    return this.todoList.sort((todo1, todo2) => {
+  updateTodoListByFinishedOrder(todoList: Todo[]) {
+    return todoList.sort((todo1, todo2) => {
       const a = todo1.isFinished ? 1 : 0
       const b = todo2.isFinished ? 1 : 0
 
@@ -68,5 +64,15 @@ export class TodoService {
     })
 
     this.todoListSubject.next(this.todoList)
+  }
+
+  searchTodo(title: string) {
+    if(title.length === 0) this.todoListSubject.next(this.todoList)
+
+    const filteredList = this.todoList.filter((todo) =>
+      todo.title.toLowerCase().includes(title.trim().toLowerCase())
+    )
+
+    this.todoListSubject.next(filteredList)
   }
 }

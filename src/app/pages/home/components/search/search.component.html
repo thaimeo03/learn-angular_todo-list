@@ -1,9 +1,9 @@
-<section class="search-bar">
+<form [formGroup]="searchForm" (ngSubmit)="handleSearch()" class="search-bar">
   <div class="search-input">
-    <home-input-with-icon iconName="search" placeholder="Search..."/>
+    <home-input-with-icon iconName="search" placeholder="Search..." formControlName="title" />
   </div>
 
-  <home-button customClass="circle-btn">
+  <home-button type="submit" customClass="circle-btn">
     <mat-icon class="search-icon-click">search</mat-icon>
   </home-button>
-</section>
+</form>
