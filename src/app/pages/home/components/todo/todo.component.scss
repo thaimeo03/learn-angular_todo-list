@@ -9,6 +9,16 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    width: 100%;
+
+    .input {
+      width: 100%;
+      background: none;
+      border: none;
+      outline: none;
+      color: white;
+      font-size: medium;
+    }
 
     .title {
       text-decoration: line-through;
@@ -32,4 +42,9 @@
       color: var(--accent-color-600);
     }
   }
+}
+
+.alert {
+  color: red;
+  font-size: small;
 }

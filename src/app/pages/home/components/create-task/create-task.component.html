@@ -1,18 +1,28 @@
-<p class="title">Create task</p>
+<form [formGroup]="todoForm" (ngSubmit)="handleCreate()">
+  <p class="title">Create task</p>
 
-<div class="create-task-input">
-  <home-input-with-icon iconName="edit" placeholder="Write the task name..."/>
-</div>
+  <div class="create-task-input">
+    <home-input-with-icon
+      iconName="edit"
+      placeholder="Write the task name..."
+      formControlName="title"
+    />
+    <div class="alert" *ngIf="todoForm.invalid && (todoForm.dirty || todoForm.touched)">
+      <div>Title is required.</div>
+    </div>
+  </div>
 
-<div class="group-btn">
-  <home-button
-    customClass="btn-white"
-    (clicked)="handleCancel()"
-  >
-    Cancel
-  </home-button>
+  <div class="group-btn">
+    <home-button
+      customClass="btn-white"
+      (clicked)="handleCancel()"
+    >
+      Cancel
+    </home-button>
 
-  <home-button (clicked)="handleCreate()">
-    Accept
-  </home-button>
-</div>
+    <home-button type="submit" [disabled]="todoForm.invalid">
+      Accept
+    </home-button>
+  </div>
+
+</form>

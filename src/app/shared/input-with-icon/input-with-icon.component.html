@@ -4,8 +4,11 @@
   <input
     class="input"
     type={{type}}
-    placeholder={{placeholder}}
     name={{name}}
+    [value]="value"
+    placeholder={{placeholder}}
+    (input)="onInput($event)"
+    (blur)="onTouched()"
   />
 </div>
 

@@ -1,9 +1,21 @@
 <section class="todo-box">
   <div class="group-1">
-    <app-radio-button [value]="todo.id" [checked]="todo.isFinished" (valueChange)="onValueChange()"/>
-    <p [ngClass]="{'title': todo.isFinished}">{{ todo.title }}</p>
+    <app-radio-button [value]="todo.id" [checked]="todo.isFinished" (valueChange)="onCheckedChange()"/>
+    <input
+      class="input"
+      type="text"
+      [ngClass]="{'title': todo.isFinished}"
+      [ngModel]="todo.title"
+      (ngModelChange)="updateTitle($event)"
+      required
+      #title="ngModel"
+    />
   </div>
   <div class="group-2">
-    <mat-icon class="close-icon">close</mat-icon>
+    <mat-icon class="close-icon" (click)="deleteTodo(todo.id)">close</mat-icon>
   </div>
 </section>
+
+<div class="alert" *ngIf="title.invalid && (title.dirty || title.touched)">
+  <div *ngIf="title.hasError('required')">Title is required.</div>
+</div>

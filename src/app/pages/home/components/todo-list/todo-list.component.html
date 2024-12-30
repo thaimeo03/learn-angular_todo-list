@@ -1,12 +1,12 @@
 <div class="group">
   <div class="task-info">
     <div>
-      Total Tasks: <span class="task-value">0</span>
+      Total Tasks: <span class="task-value">{{totalTasks}}</span>
     </div>
     <div class="">
       Completed:
       <span class="task-value">
-        <span>0</span> / <span>0</span>
+        <span>{{finishTasks}}</span> / <span>{{totalTasks}}</span>
       </span>
     </div>
   </div>
@@ -15,7 +15,9 @@
     <app-todo
       *ngFor="let todo of todoList"
       [todo]="todo"
-      (updateTodoEvent)="updateTodoList($event)"
+      (updateTodoEvent)="updateTodoList()"
+      (deleteTodoEvent)="deleteTodo($event)"
+      (updateTitleEvent)="updateTitle($event)"
     />
   </div>
 

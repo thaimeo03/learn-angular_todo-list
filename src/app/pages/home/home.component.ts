@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import {MatIconModule} from '@angular/material/icon';
 import { CreateTaskComponent } from "./components/create-task/create-task.component";
 import { SearchComponent } from "./components/search/search.component";
