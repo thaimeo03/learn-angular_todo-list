@@ -1,10 +1,11 @@
+import { CommonModule } from "@angular/common";
 import { Component, forwardRef, Input } from "@angular/core";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'home-input-with-icon',
-  imports: [MatIconModule],
+  imports: [MatIconModule, CommonModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -20,6 +21,7 @@ export class InputWithIconComponent implements ControlValueAccessor {
   @Input() type: string = 'text';
   @Input() placeholder: string = '';
   @Input() name: string = '';
+  @Input() customClass: string = '';
 
   onChange: (value: string) => void = () => {};
   onTouched: () => void = () => {};

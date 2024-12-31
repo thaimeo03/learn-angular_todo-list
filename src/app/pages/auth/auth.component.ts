@@ -4,7 +4,14 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-auth',
   imports: [RouterOutlet],
-  templateUrl: './auth.component.html',
+  template:
+  `
+  <div class="form-container">
+    <div class="form-layout">
+      <router-outlet />
+    </div>
+  </div>
+`,
   styleUrl: './auth.component.scss'
 })
 export class AuthComponent {

@@ -12,7 +12,7 @@
   width: 100%;
   height: 45px;
   padding-left: 2.5rem;
-  box-shadow: 0 0 0 1.5px #2b2c37, 0 0 25px -17px #000;
+  box-shadow: 0 0 0 1px #2b2c37, 0 0 25px -17px #000;
   border: 0;
   border-radius: 12px;
   background-color: #16171d;
@@ -42,4 +42,17 @@
   height: 1.2rem;
   pointer-events: none;
   z-index: 1;
+}
+
+.input-white {
+  background-color: white;
+  color: black;
+}
+
+.input-white:hover {
+   box-shadow: 0 0 0 1px #2f303d, 0px 0px 25px -15px #000;
+}
+
+.input-white:focus {
+  box-shadow: 0 0 0 1px #2f303d;
 }

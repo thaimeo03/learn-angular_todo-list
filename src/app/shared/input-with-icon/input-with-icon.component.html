@@ -1,14 +1,6 @@
 <div class="group">
   <mat-icon class="icon">{{iconName}}</mat-icon>
 
-  <input
-    class="input"
-    type={{type}}
-    name={{name}}
-    [value]="value"
-    placeholder={{placeholder}}
-    (input)="onInput($event)"
-    (blur)="onTouched()"
-  />
+  <input [type]="type" [name]="name" [value]="value" placeholder={{placeholder}} (input)="onInput($event)"
+    (blur)="onTouched()" [ngClass]="['input', customClass]" />
 </div>
-
