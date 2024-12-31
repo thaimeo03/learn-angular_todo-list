@@ -5,10 +5,11 @@ import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
+import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
 
 @Component({
   selector: 'app-login',
-  imports: [InputWithIconComponent, ButtonComponent, RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [InputWithIconComponent, ButtonComponent, RouterLink, ReactiveFormsModule, CommonModule, SpinnerComponent],
   providers: [AuthService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

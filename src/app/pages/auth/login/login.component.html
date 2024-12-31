@@ -26,7 +26,9 @@
       <div class="alert" *ngIf="errorMessage">{{ errorMessage }}</div>
     </div>
 
-    <home-button type="submit" customClass="auth-btn">Sign In <span *ngIf="isLoading">...Loading</span></home-button>
+    <home-button type="submit" [disabled]="loginForm.invalid || isLoading" customClass="auth-btn">
+      Sign In <app-spinner [isLoading]="isLoading" [size]="20" />
+    </home-button>
 
     <p class="p">
       Don't have an account? <a [routerLink]="['/register']">Sign Up</a>
