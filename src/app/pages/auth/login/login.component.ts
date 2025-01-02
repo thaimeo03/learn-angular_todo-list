@@ -10,7 +10,6 @@ import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
 @Component({
   selector: 'app-login',
   imports: [InputWithIconComponent, ButtonComponent, RouterLink, ReactiveFormsModule, CommonModule, SpinnerComponent],
-  providers: [AuthService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -38,13 +37,8 @@ export class LoginComponent {
       email: this.loginForm.value.email as string,
       password: this.loginForm.value.password as string
     }).subscribe({
-      next: (authToken) => {
-        localStorage.setItem('accessToken', authToken.accessToken);
-        localStorage.setItem('refreshToken', authToken.refreshToken);
-
-        console.log(authToken);
+      next: () => {
         this.router.navigate(['/'])
-
         this.errorMessage = '';
       },
       error: (error: string) => {
