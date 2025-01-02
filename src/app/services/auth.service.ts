@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AuthToken, Login } from '../models/auth';
 import { Observable, tap } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,17 @@ export class AuthService {
     )
   }
 
+  refreshToken() {
+    const refreshToken = this.getRefreshToken()
+    const res = this.#httpClient.post<AuthToken>(`/auth/refresh-token`, { refreshToken })
+
+    return res.pipe(
+      tap(authToken => {
+        this.setTokens(authToken.accessToken, authToken.refreshToken)
+      })
+    )
+  }
+
   checkAuth(): boolean {
     const accessToken = this.getAccessToken()
     const refreshToken = this.getRefreshToken()
@@ -30,12 +42,32 @@ export class AuthService {
       return false
     }
 
+    const decoded = jwtDecode(accessToken)
+
+    if((decoded.exp as number) >= Date.now() / 1000) {
+      console.log('Access token expired')
+
+      this.refreshToken().subscribe({
+        error: () => {
+          this.removeTokens()
+          return false
+        }
+      }
+    )
+
+    }
+
     return true
   }
 
-  setTokens(access_token: string, refresh_token: string) {
-    localStorage.setItem(this.ACCESS_TOKEN_KEY, access_token)
-    localStorage.setItem(this.REFRESH_TOKEN_KEY, refresh_token)
+  setTokens(accessToken: string, refreshToken: string) {
+    localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken)
+    localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken)
+  }
+
+  removeTokens() {
+    localStorage.removeItem(this.ACCESS_TOKEN_KEY)
+    localStorage.removeItem(this.REFRESH_TOKEN_KEY)
   }
 
   getAccessToken(): string {
