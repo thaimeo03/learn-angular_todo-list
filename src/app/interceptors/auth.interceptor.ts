@@ -16,21 +16,19 @@ export class AuthInterceptor implements HttpInterceptor {
 
     let authReq = req
 
-    if(accessToken.length) {
+    if (accessToken.length) {
       authReq = req.clone({
         setHeaders: {
-          authorization: this.getBearerToken(accessToken)
-        }
+          Authorization: this.getBearerToken(accessToken),
+        },
       })
     }
 
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
         if(error.status === 401) {
-          this.authService.refreshToken().pipe(
+          return this.authService.refreshToken().pipe(
             switchMap((authToken) => {
-              this.authService.setTokens(authToken.accessToken, authToken.refreshToken)
-
               const newAuthReq = req.clone({
                 setHeaders: {
                   authorization: this.getBearerToken(authToken.accessToken)
@@ -38,18 +36,15 @@ export class AuthInterceptor implements HttpInterceptor {
               })
 
               return next.handle(newAuthReq)
+            }),
+            catchError(() => {
+              this.authService.removeTokens()
+              this.router.navigate(['/login'])
+
+              return throwError(() => new Error('Unauthorized'))
             })
-          ),
-          catchError(() => {
-            this.authService.removeTokens()
-
-            this.router.navigate(['/login'])
-
-            return throwError(() => error)
-          })
+          )
         }
-
-        this.router.navigate(['/login'])
 
         return throwError(() => error)
       })

@@ -26,8 +26,10 @@ export class CreateTodoComponent {
   }
 
   handleCreate() {
-    this.todoService.createTodo(this.todoForm.value.title as string)
-    this.handleCancel()
-    this.todoForm.reset()
+    this.todoService.createTodoApi({title: this.todoForm.value.title as string}).subscribe(() => {
+      this.handleCancel()
+      this.todoForm.reset()
+      this.todoService.getTodoListApi()
+    })
   }
 }

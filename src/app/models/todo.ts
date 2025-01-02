@@ -1,5 +1,15 @@
 export interface Todo {
-  id: number
+  id: string
   title: string
-  isFinished: boolean
+  expiredAt?: Date
+  finished: boolean
+}
+
+export interface TodoListResponse {
+  metadata: Todo[]
+}
+
+export interface CreateTodoBody {
+  title: string
+  expiredAt?: Date
 }

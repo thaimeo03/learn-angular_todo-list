@@ -20,10 +20,11 @@ export class TodoListComponent implements OnInit {
   finishTasks = 0
 
   ngOnInit(): void {
-    this.todoService.todoList$.subscribe((todoList) => {
-      this.todoList = this.todoService.updateTodoListByFinishedOrder(todoList)
-      this.updateTaskInfo()
-    })
+    // Subscribe to the todo list observable for updates
+    this.todoService.getTodoList().subscribe((list) => {
+      this.todoList = list;
+      this.updateTaskInfo();
+    });
   }
 
   updateTodoList() {
@@ -31,14 +32,14 @@ export class TodoListComponent implements OnInit {
     this.updateTaskInfo()
   }
 
-  deleteTodo(todoId: number) {
-    this.todoList = this.todoService.deleteTodo(todoId)
+  deleteTodo(todoId: string) {
+    this.todoService.deleteTodoApi(todoId)
     this.updateTaskInfo()
   }
 
   updateTaskInfo() {
-    this.totalTasks = this.todoService.getTotalTasks()
-    this.finishTasks = this.todoService.getFinishTasks()
+    this.totalTasks = this.todoList.length
+    this.finishTasks = this.todoList.filter((todo) => todo.finished).length
   }
 
   updateTitle(todo: Todo) {

@@ -25,6 +25,7 @@ export class AuthService {
 
   refreshToken() {
     const refreshToken = this.getRefreshToken()
+
     const res = this.#httpClient.post<AuthToken>(`/auth/refresh-token`, { refreshToken })
 
     return res.pipe(
@@ -44,9 +45,7 @@ export class AuthService {
 
     const decoded = jwtDecode(accessToken)
 
-    if((decoded.exp as number) >= Date.now() / 1000) {
-      console.log('Access token expired')
-
+    if((decoded.exp as number) <= Date.now() / 1000) {
       this.refreshToken().subscribe({
         error: () => {
           this.removeTokens()

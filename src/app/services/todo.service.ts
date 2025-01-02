@@ -1,78 +1,62 @@
-import { Injectable } from '@angular/core';
-import { Todo } from '../models/todo';
-import { BehaviorSubject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { CreateTodoBody, Todo, TodoListResponse } from '../models/todo';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { MessageResponse } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  private todoList: Todo[] = [
-      {id: 1, title: "Todo 1", isFinished: false},
-      {id: 2, title: "Todo 2", isFinished: true},
-      {id: 3, title: "Todo 3", isFinished: false}
-  ]
+  private httpClient = inject(HttpClient);
+  private todoListSubject = new BehaviorSubject<Todo[]>([]);
+  private todoList: Todo[] = [];
 
-  private todoListSubject = new BehaviorSubject<Todo[]>(this.todoList)
-
-  todoList$ = this.todoListSubject.asObservable()
-
-  getTotalTasks() {
-    return this.todoList.length
+  constructor() {
+    this.getTodoListApi();
   }
 
-  getFinishTasks() {
-    let cnt = 0
-
-    for(const todo of this.todoList) {
-      if(todo.isFinished) cnt++
-    }
-
-    return cnt
+  // Api
+  getTodoListApi(): void {
+    this.httpClient.get<TodoListResponse>('/todos').subscribe((res) => {
+      this.todoList = this.updateTodoListByFinishedOrder(res.metadata);
+      this.todoListSubject.next(this.todoList);
+    });
   }
 
-  updateTodoListByFinishedOrder(todoList: Todo[]) {
-    return todoList.sort((todo1, todo2) => {
-      const a = todo1.isFinished ? 1 : 0
-      const b = todo2.isFinished ? 1 : 0
+  createTodoApi(createTodoBody: CreateTodoBody): Observable<MessageResponse> {
+    return this.httpClient.post<MessageResponse>('/todos', createTodoBody)
+  }
 
-      return a - b
+  // Helpers
+  getTodoList(): Observable<Todo[]> {
+    return this.todoListSubject.asObservable();
+  }
+
+  updateTodoListByFinishedOrder(todoList: Todo[]): Todo[] {
+    return todoList.sort((a, b) => (a.finished === b.finished ? 0 : a.finished ? 1 : -1));
+  }
+
+  deleteTodoApi(id: string): void {
+    this.httpClient.delete<MessageResponse>(`/todos/${id}`).subscribe(() => {
+      this.todoList = this.todoList.filter((todo) => todo.id !== id);
+      this.todoListSubject.next(this.todoList);
     })
   }
 
-  deleteTodo(id: number) {
-    this.todoList = this.todoList.filter(todo => todo.id !== id)
-    return this.todoList
-  }
-
-  updateTitle(todo: Todo) {
-    const index = this.todoList.findIndex((todo) => todo.id === todo.id)
-
-    if(index !== -1) {
-      this.todoList[index].title = todo.title
+  updateTitle(todo: Todo): void {
+    const index = this.todoList.findIndex((t) => t.id === todo.id);
+    if (index !== -1) {
+      this.todoList[index].title = todo.title;
+      this.todoListSubject.next(this.todoList);
+      console.log('Updated title:', todo.title);
     }
-
-    console.log("Updated title: ", todo.title)
   }
 
-  createTodo(title: string) {
-    const id = Math.floor(Math.random() * 10000)
-
-    this.todoList.unshift({
-      id,
-      title: title.trim(),
-      isFinished: false
-    })
-
-    this.todoListSubject.next(this.todoList)
-  }
-
-  searchTodo(title: string) {
-    if(title.length === 0) this.todoListSubject.next(this.todoList)
-
+  searchTodo(title: string): void {
     const filteredList = this.todoList.filter((todo) =>
       todo.title.toLowerCase().includes(title.trim().toLowerCase())
-    )
-
-    this.todoListSubject.next(filteredList)
+    );
+    this.todoListSubject.next(filteredList);
   }
 }

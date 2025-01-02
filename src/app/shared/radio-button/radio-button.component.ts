@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './radio-button.component.scss'
 })
 export class RadioButtonComponent {
-  @Input() value!: number; // Giá trị của radio button
+  @Input() value!: string; // Giá trị của radio button
   @Input() name!: string
   @Input() checked: boolean = false; // Trạng thái được chọn
   @Input() disabled: boolean = false; // Trạng thái vô hiệu hóa

@@ -17,7 +17,7 @@ export class TodoComponent {
   @Input() todo!: Todo;
 
   @Output() updateTodoEvent = new EventEmitter<void>();
-  @Output() deleteTodoEvent = new EventEmitter<number>();
+  @Output() deleteTodoEvent = new EventEmitter<string>();
   @Output() updateTitleEvent = new EventEmitter<Todo>();
 
   private titleUpdateSubject = new Subject<string>();
@@ -31,11 +31,11 @@ export class TodoComponent {
   }
 
   onCheckedChange() {
-    this.todo.isFinished = !this.todo.isFinished
+    this.todo.finished = !this.todo.finished
     this.updateTodoEvent.emit()
   }
 
-  deleteTodo(id: number) {
+  deleteTodo(id: string) {
     this.deleteTodoEvent.emit(id)
   }
 
