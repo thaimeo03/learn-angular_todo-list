@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Todo } from '../../../../models/todo';
+import { Todo, UpdateTodoBody } from '../../../../models/todo';
 import { MatIconModule } from '@angular/material/icon';
 import { RadioButtonComponent } from '../../../../shared/radio-button/radio-button.component';
 import { CommonModule } from '@angular/common';
@@ -16,23 +16,20 @@ import { debounceTime, Subject } from 'rxjs';
 export class TodoComponent {
   @Input() todo!: Todo;
 
-  @Output() updateTodoEvent = new EventEmitter<void>();
   @Output() deleteTodoEvent = new EventEmitter<string>();
-  @Output() updateTitleEvent = new EventEmitter<Todo>();
+  @Output() updateTodoEvent = new EventEmitter<Todo>();
 
-  private titleUpdateSubject = new Subject<string>();
+  private updateTodoSubject = new Subject<Todo>();
 
   constructor() {
-    this.titleUpdateSubject.pipe(debounceTime(1000)).subscribe((title) => {
-      if(title.length > 0) {
-        this.updateTitleEvent.emit(this.todo)
-      }
+    this.updateTodoSubject.pipe(debounceTime(500)).subscribe((todo) => {
+      this.updateTodoEvent.emit(this.todo)
     })
   }
 
   onCheckedChange() {
     this.todo.finished = !this.todo.finished
-    this.updateTodoEvent.emit()
+    this.updateTodoSubject.next(this.todo)
   }
 
   deleteTodo(id: string) {
@@ -41,6 +38,6 @@ export class TodoComponent {
 
   updateTitle(title: string) {
     this.todo.title = title
-    this.titleUpdateSubject.next(title)
+    this.updateTodoSubject.next(this.todo)
   }
 }

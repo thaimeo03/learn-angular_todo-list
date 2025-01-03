@@ -37,12 +37,16 @@ export class TodoListComponent implements OnInit {
     this.updateTaskInfo()
   }
 
+  updateTodo(todo: Todo) {
+    this.todoService.updateTodoListByFinishedOrder(this.todoList)
+    this.todoService.updateTodoApi(todo.id, todo).subscribe((res) => {
+      console.log(res.message)
+    })
+  }
+
   updateTaskInfo() {
     this.totalTasks = this.todoList.length
     this.finishTasks = this.todoList.filter((todo) => todo.finished).length
   }
 
-  updateTitle(todo: Todo) {
-    this.todoService.updateTitle(todo)
-  }
 }

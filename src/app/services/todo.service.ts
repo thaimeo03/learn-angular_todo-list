@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { CreateTodoBody, Todo, TodoListResponse } from '../models/todo';
+import { CreateTodoBody, Todo, TodoListResponse, UpdateTodoBody } from '../models/todo';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MessageResponse } from '../models';
@@ -26,6 +26,10 @@ export class TodoService {
 
   createTodoApi(createTodoBody: CreateTodoBody): Observable<MessageResponse> {
     return this.httpClient.post<MessageResponse>('/todos', createTodoBody)
+  }
+
+  updateTodoApi(id: string, updateTodoBody: UpdateTodoBody): Observable<MessageResponse> {
+    return this.httpClient.patch<MessageResponse>(`/todos/${id}`, updateTodoBody)
   }
 
   // Helpers

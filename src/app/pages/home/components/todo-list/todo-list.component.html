@@ -12,13 +12,8 @@
   </div>
 
   <div class="todo-list" *ngIf="todoList.length > 0; else noTodos;">
-    <app-todo
-      *ngFor="let todo of todoList"
-      [todo]="todo"
-      (updateTodoEvent)="updateTodoList()"
-      (deleteTodoEvent)="deleteTodo($event)"
-      (updateTitleEvent)="updateTitle($event)"
-    />
+    <app-todo *ngFor="let todo of todoList" [todo]="todo" (deleteTodoEvent)="deleteTodo($event)"
+      (updateTodoEvent)="updateTodo($event)" />
   </div>
 
   <ng-template #noTodos>

@@ -13,3 +13,7 @@ export interface CreateTodoBody {
   title: string
   expiredAt?: Date
 }
+
+export interface UpdateTodoBody extends Partial<CreateTodoBody> {
+  finished?: boolean
+}
