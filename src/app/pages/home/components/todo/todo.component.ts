@@ -23,7 +23,7 @@ export class TodoComponent {
 
   constructor() {
     this.updateTodoSubject.pipe(debounceTime(500)).subscribe((todo) => {
-      this.updateTodoEvent.emit(this.todo)
+      this.updateTodoEvent.emit(todo)
     })
   }
 
